@@ -51,7 +51,7 @@ def bellman_ford(graph, source, graphType):
     def relax(node, neighbour, graph, d, p):
         # If the distance between the node and the neighbour is lower than the one I have now
         if d[neighbour] > d[node] + graph[node][neighbour]:
-            hint = "Релаксация прошла успешно"
+            hint = "Найден более которткий путь из {source} в {destination}, равный {path}".format(source = 'a', destination = neighbour, path = d[node] + graph[node][neighbour])
             printGraph(graph, graphType, d, node, neighbour, hint)
             # Record this lower distance
             d[neighbour]  = d[node] + graph[node][neighbour]
@@ -60,7 +60,7 @@ def bellman_ford(graph, source, graphType):
 
 
     d, p = initialize(graph, source)
-    hint = "Задан граф, необходимо найти путь из вершины {source} в остальные вершины графа".format(source = source)
+    hint = "Задан граф Г;\nНеобходимо найти путь из вершины {source} в остальные вершины графа;\nИзначально положим длины путей от текущей вершины до остальных равными {path}".format(source = source, path = float(inf))
     printGraph(graph, graphType, d, 'a', 'a', hint)
 
 
@@ -74,6 +74,8 @@ def bellman_ford(graph, source, graphType):
         for v in graph[u]:
             assert d[v] <= d[u] + graph[u][v]
 
+    hint = "Найденные кратчайшие пути:\n{d}".format(d = d)
+    printGraph(graph, graphType, d, 'a', 'a', hint)
     return d, p
 
 
